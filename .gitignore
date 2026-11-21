@@ -3,6 +3,10 @@ node_modules/
 */node_modules/
 */*/node_modules/
 
+# Local AI Agent configuration and rules
+.agent/
+*/.agent/
+
 # Build and distribution directories
 dist/
 build/
