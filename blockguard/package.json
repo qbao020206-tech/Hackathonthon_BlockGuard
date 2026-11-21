@@ -1,0 +1,13 @@
+{
+  "name": "blockguard-monorepo",
+  "version": "1.0.0",
+  "description": "BlockGuard — AI-Powered Smart Contract Security Assistant",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install && cd ../contracts && npm install",
+    "compile:contracts": "cd contracts && npm run compile",
+    "deploy:fuji": "cd contracts && npm run deploy:fuji",
+    "build:all": "cd backend && npm run build && cd ../frontend && npm run build",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  }
+}
