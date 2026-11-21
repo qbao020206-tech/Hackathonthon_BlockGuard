@@ -1,8 +1,9 @@
-# Multi-stage Dockerfile for BlockGuard Backend
-FROM node:20-alpine AS builder
+# Build Stage
+FROM node:20-bookworm-slim AS builder
 
 WORKDIR /app
-RUN apk add --no-cache python3 make g++
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
+
 COPY package*.json tsconfig.json ./
 RUN npm ci
 
@@ -10,15 +11,16 @@ COPY src ./src
 RUN npm run build
 
 # Production Runner
-FROM node:20-alpine AS runner
+FROM node:20-bookworm-slim AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
-RUN apk add --no-cache python3 make g++
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 COPY --from=builder /app/dist ./dist
 

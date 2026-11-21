@@ -3,7 +3,7 @@ services:
     name: blockguard-backend
     runtime: docker
     rootDir: blockguard/backend
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: Dockerfile
     plan: free
     region: singapore
     envVars:
