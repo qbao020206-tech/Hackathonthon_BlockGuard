@@ -1,33 +1,29 @@
-# Build Stage
-FROM node:20-bookworm-slim AS builder
+FROM node:20-bookworm-slim
 
 WORKDIR /app
-RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
+
+# Install native build tools for compiling better-sqlite3 C++ addon
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json tsconfig.json ./
-RUN npm ci
+
+# Install dependencies and force native compilation from source
+RUN npm install
+RUN npm rebuild better-sqlite3 --build-from-source
 
 COPY src ./src
 RUN npm run build
 
-# Production Runner
-FROM node:20-bookworm-slim AS runner
+# Ensure persistent directories exist
+RUN mkdir -p /app/data /app/logs
 
-WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=3001
+ENV PORT=10000
 
-RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
-
-COPY package*.json ./
-RUN npm ci --omit=dev
-
-COPY --from=builder /app/dist ./dist
-
-# Create persistent storage directories and assign ownership
-RUN mkdir -p /app/data /app/logs && chown -R node:node /app
-
-EXPOSE 3001
-USER node
+EXPOSE 10000
 
 CMD ["node", "dist/index.js"]

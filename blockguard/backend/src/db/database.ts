@@ -11,8 +11,12 @@ if (!fs.existsSync(DATA_DIR)) {
 const DB_PATH = path.join(DATA_DIR, 'blockguard.db');
 const db = new Database(DB_PATH);
 
-// Enable WAL mode for high concurrency & reliability
-db.pragma('journal_mode = WAL');
+// Enable WAL mode for high concurrency & reliability with fallback
+try {
+  db.pragma('journal_mode = WAL');
+} catch (err) {
+  console.warn('Notice: WAL mode could not be enabled, fallback to DELETE mode:', err);
+}
 
 // Initialize schema
 db.exec(`

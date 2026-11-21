@@ -9,7 +9,7 @@ import { logger } from './services/logger';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = Number(process.env.PORT) || 3001;
 
 // Security Middleware: Helmet with strict No-Referrer Policy
 app.use(helmet({
@@ -62,7 +62,7 @@ app.get('/health', (_req, res) => {
 // Mount Routes
 app.use('/api', auditRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`===============================================`);
   console.log(`🛡️  BlockGuard Backend Scanner running on port ${PORT}`);
   console.log(`💾 Database: SQLite (Persistent in data/blockguard.db)`);
