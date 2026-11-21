@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim
+FROM node:22-bookworm-slim
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY package*.json tsconfig.json ./
 
-# Install dependencies and force native compilation from source
+# Install dependencies and rebuild better-sqlite3 for Node 22
 RUN npm install
 RUN npm rebuild better-sqlite3 --build-from-source
 
