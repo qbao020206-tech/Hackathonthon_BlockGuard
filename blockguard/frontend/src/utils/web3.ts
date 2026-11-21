@@ -4,7 +4,7 @@ export const FUJI_CHAIN_ID = 43113;
 export const FUJI_CHAIN_ID_HEX = '0xa869';
 export const FUJI_RPC_URL = (import.meta as any).env?.VITE_FUJI_RPC_URL || 'https://api.avax-test.network/ext/bc/C/rpc';
 export const SNOWTRACE_URL = 'https://testnet.snowtrace.io';
-export const REGISTRY_CONTRACT_ADDRESS = (import.meta as any).env?.VITE_CONTRACT_ADDRESS || '0x5352613D4164b18E5094251785501C110d7C9246';
+export const REGISTRY_CONTRACT_ADDRESS = (import.meta as any).env?.VITE_CONTRACT_ADDRESS || '0xD9Af5beCC24CCeF628b1CEDF2651d1c2EB020F0A';
 
 export const REGISTRY_ABI = [
   'function registerAudit(bytes32 auditId, bytes32 sourceHash, bytes32 reportHash) external',

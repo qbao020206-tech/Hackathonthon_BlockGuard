@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const FUJI_PRIVATE_KEY = process.env.FUJI_PRIVATE_KEY || "0000000000000000000000000000000000000000000000000000000000000001";
+const privateKey = process.env.PRIVATE_KEY || process.env.FUJI_PRIVATE_KEY;
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -21,7 +21,7 @@ const config: HardhatUserConfig = {
     fuji: {
       url: process.env.FUJI_RPC_URL || "https://api.avax-test.network/ext/bc/C/rpc",
       chainId: 43113,
-      accounts: [FUJI_PRIVATE_KEY],
+      accounts: privateKey ? [privateKey] : [],
     },
   },
   paths: {

@@ -2,7 +2,15 @@ import { ethers } from 'ethers';
 import { VerificationResult } from '../types';
 
 const FUJI_RPC_URL = process.env.FUJI_RPC_URL || 'https://api.avax-test.network/ext/bc/C/rpc';
-const REGISTRY_CONTRACT_ADDRESS = process.env.REGISTRY_CONTRACT_ADDRESS || '';
+
+let defaultContractAddress = '';
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const artifact = require('../contracts/AuditRegistry.json');
+  defaultContractAddress = artifact.address || '';
+} catch {}
+
+const REGISTRY_CONTRACT_ADDRESS = process.env.REGISTRY_CONTRACT_ADDRESS || defaultContractAddress;
 
 // Minimal ABI for read-only verification
 const REGISTRY_ABI = [
