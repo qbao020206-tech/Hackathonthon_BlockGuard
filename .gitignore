@@ -7,6 +7,11 @@ node_modules/
 .agent/
 */.agent/
 
+# Internal specifications & tests (Local only)
+tests/
+BlockGuard_Product_Blueprint_Team_Guide.md
+QA_AUDIT_REPORT.md
+
 # Build and distribution directories
 dist/
 build/

@@ -48,8 +48,6 @@
 │   ├── sample-contracts/      # Vulnerable & Remediated Solidity test contracts
 │   ├── test-suite/            # End-to-end and security attack simulations
 │   └── docker-compose.yml     # Full-stack container orchestration
-├── tests/                     # Multi-scenario stress tests & verification scripts
-├── BlockGuard_Product_Blueprint_Team_Guide.md # Full product specification & guide
 └── README.md                  # Project Documentation
 ```
 
